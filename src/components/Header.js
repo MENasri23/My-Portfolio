@@ -12,15 +12,15 @@ import { Box, HStack } from "@chakra-ui/react";
 const socials = [
   {
     icon: faEnvelope,
-    url: "mailto: hello@example.com",
+    url: "mailto: jaatliin@gmail.com",
   },
   {
     icon: faGithub,
-    url: "https://github.com",
+    url: "https://github.com/Menasri23",
   },
   {
     icon: faLinkedin,
-    url: "https://www.linkedin.com",
+    url: "https://www.linkedin.com/in/mohammad-ershad-nasri/",
   },
   {
     icon: faMedium,
@@ -28,12 +28,12 @@ const socials = [
   },
   {
     icon: faStackOverflow,
-    url: "https://stackoverflow.com",
+    url: "https://stackoverflow.com/users/13546747/jatlin",
   },
 ];
 
 const Header = () => {
-  const handleClick = (anchor) => () => {
+  const handleClick = (anchor) => {
     const id = `${anchor}-section`;
     const element = document.getElementById(id);
     if (element) {
@@ -64,7 +64,13 @@ const Header = () => {
           alignItems="center"
         >
           <nav>
-            {/* Add social media links based on the `socials` data */}
+            <HStack spacing={8}>
+              {
+                socials.map((social) => {
+                  return <SocialNavItem key={social.url} url={social.url} icon={social.icon} />;
+                })
+              }
+            </HStack>
           </nav>
           <nav>
             <HStack spacing={8}>
@@ -76,4 +82,13 @@ const Header = () => {
     </Box>
   );
 };
+
+function SocialNavItem({ url, icon }) {
+  return (
+    <a href={url}>
+      <FontAwesomeIcon icon={icon} size="2x" />
+    </a>
+  );
+}
+
 export default Header;
