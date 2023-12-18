@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import {
@@ -35,6 +35,7 @@ const socials = [
 const Header = () => {
 
   const headerRootRef = useRef(null)
+  const [showHeader, setShowHeader] = useState(true)
 
   const handleClick = (anchor) => {
     const id = `${anchor}-section`;
@@ -51,18 +52,41 @@ const Header = () => {
     }
   };
 
+
+  useEffect(() => {
+    let prevScrollY = 0
+    const headerHeight = headerRootRef.current.offsetHeight
+    
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY
+      const scrollOffsetY = currentScrollY - prevScrollY
+      if (scrollOffsetY > 0 && currentScrollY > headerHeight) {
+        setShowHeader(false)
+      } else  {
+        setShowHeader(true)
+      }
+
+      prevScrollY = currentScrollY
+    }
+
+    window.addEventListener('scroll', handleScroll)
+
+    return () => window.removeEventListener('scroll', handleScroll)
+
+  }, [])
+
   return (
-    <Box
+    <Box 
       ref={headerRootRef}
-      position="fixed"
+      position="sticky"
       top={0}
       left={0}
       right={0}
-      translateY={0}
-      transitionProperty="transform"
+      transform={`translateY(${showHeader ? "0" : "-100%"})`}
       transitionDuration=".3s"
       transitionTimingFunction="ease-in-out"
       backgroundColor="#18181b"
+      m={'auto'}
     >
       <Box color="white" maxWidth="1280px" margin="0 auto">
         <HStack
