@@ -33,6 +33,7 @@ const projects = [
 const ProjectsSection = () => {
   return (
     <FullScreenSection
+      scrollMargin="100px"
       backgroundColor="#14532d"
       isDarkBackground
       p={8}

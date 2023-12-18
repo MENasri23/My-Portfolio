@@ -33,19 +33,27 @@ const socials = [
 ];
 
 const Header = () => {
+
+  const headerRootRef = useRef(null)
+
   const handleClick = (anchor) => {
     const id = `${anchor}-section`;
     const element = document.getElementById(id);
     if (element) {
-      element.scrollIntoView({
+      const headerHeight = headerRootRef.current.offsetHeight;
+      const elementTopPosition = element.getBoundingClientRect().top + window.scrollY - headerHeight;
+
+      window.scrollTo({
+        top: elementTopPosition,
         behavior: "smooth",
         block: "start",
-      });
+      })
     }
   };
 
   return (
     <Box
+      ref={headerRootRef}
       position="fixed"
       top={0}
       left={0}
@@ -65,16 +73,13 @@ const Header = () => {
         >
           <nav>
             <HStack spacing={8}>
-              {
-                socials.map((social) => {
-                  return <SocialNavItem key={social.url} url={social.url} icon={social.icon} />;
-                })
-              }
+              <SocialItems socials={socials} />
             </HStack>
           </nav>
           <nav>
             <HStack spacing={8}>
-              {/* Add links to Projects and Contact me section */}
+              <a href="#projects" onClick={() => handleClick("projects")}>Projects</a>
+              <a href="#contact-me" onClick={() => handleClick("contactme")}>Contact Me</a>
             </HStack>
           </nav>
         </HStack>
@@ -83,9 +88,15 @@ const Header = () => {
   );
 };
 
-function SocialNavItem({ url, icon }) {
+function SocialItems({ socials }) {
+  return socials.map((social) => (
+    <SocialNavItem key={social.url} url={social.url} icon={social.icon} target="blank" />
+  ));
+}
+
+function SocialNavItem({ url, icon, ...props }) {
   return (
-    <a href={url}>
+    <a href={url} {...props}>
       <FontAwesomeIcon icon={icon} size="2x" />
     </a>
   );
