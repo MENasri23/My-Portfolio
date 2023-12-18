@@ -54,22 +54,22 @@ const Header = () => {
 
 
   useEffect(() => {
-    let prevScrollY = 0
-    const headerHeight = headerRootRef.current.offsetHeight
+    let prevScrollY = window.scrollY;
+    const headerHeight = headerRootRef.current.offsetHeight;
     
     const handleScroll = () => {
-      const currentScrollY = window.scrollY
-      const scrollOffsetY = currentScrollY - prevScrollY
+      const currentScrollY = window.scrollY;
+      const scrollOffsetY = currentScrollY - prevScrollY;
       if (scrollOffsetY > 0 && currentScrollY > headerHeight) {
-        setShowHeader(false)
+        setShowHeader(false);
       } else  {
-        setShowHeader(true)
+        setShowHeader(true);
       }
 
-      prevScrollY = currentScrollY
+      prevScrollY = currentScrollY;
     }
 
-    window.addEventListener('scroll', handleScroll)
+    window.addEventListener('scroll', handleScroll);
 
     return () => window.removeEventListener('scroll', handleScroll)
 
