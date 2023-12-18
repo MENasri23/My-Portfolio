@@ -18,7 +18,7 @@ const LandingSection = () => (
     <VStack>
     <Avatar size="2xl"  src={avatarImg} />
     <Heading as="h6" size="sm" noOfLines={1}>{greeting}</Heading>
-    <Heading as="h5" style={{ marginTop: '2rem' }}>{bio1}</Heading>
+    <Heading as="h5" pt={'8'}>{bio1}</Heading>
     <Heading as="h6" size="xl">{bio2}</Heading>
     </VStack>
   </FullScreenSection>
